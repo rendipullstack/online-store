@@ -23,9 +23,18 @@ Untuk menjalankan aplikasi ini, Anda perlu menginstal beberapa dependensi terleb
 - Clone repository ini ke dalam direktori lokal Anda.
 - Jalankan perintah npm install untuk menginstal semua dependensi yang dibutuhkan.
 - Clone file .env.example 
-``[ cp .env.example .env ]``
+```
+cp .env.example .env 
+```
 - Jalankan perintah go run main.go untuk menjalankan aplikasi.
 
 ## API Endpoints
 Aplikasi ini memiliki beberapa endpoint API yang dapat diakses oleh klien. Berikut adalah daftar endpoint yang tersedia pada link berikut : 
-[https://online-store-hanif.up.railway.app/swagger/index.html]
+<https://online-store-hanif.up.railway.app/swagger/index.html>
+
+## Authentication
+REST API: <https://online-store-hanif.up.railway.app>
+|Role|Email|Password|
+|----|-----|--------|
+|Admin|admin@hanifz.com|qweqwe|
+|Customer|user@hanifz.com|qweqwe|
