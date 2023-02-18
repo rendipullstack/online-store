@@ -271,7 +271,7 @@ definitions:
       user_id:
         type: integer
     type: object
-host: https://online-store-hanif.up.railway.app
+host: online-store-hanif.up.railway.app
 info:
   contact:
     email: ochammadhanif@gmail.com
