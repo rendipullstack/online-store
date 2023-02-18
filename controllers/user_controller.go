@@ -90,7 +90,7 @@ func (uc *UserController) SignIn(c *gin.Context) {
 		utils.NewResponse(
 			http.StatusOK,
 			"Login Success",
-			token,
+			"Bearer "+token,
 		),
 	)
 }
