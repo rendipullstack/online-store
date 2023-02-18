@@ -34,6 +34,19 @@ func NewTransactionService(
 	}
 }
 
+// CreateTransaction godoc
+// @Summary      Checkout
+// @Description  Checkout product list in shopping cart
+// @Tags         Customer
+// @Accept       json
+// @Param        request body models.TransactionInput true "Payload Body [RAW]"
+// @Produce      json
+// @Success      200 {object} models.TransactionHistory
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /checkout [post]
+// @Security BearerAuth
 func (s *transactionService) CreateTransaction(input models.TransactionInput, userID uint) (models.TransactionPostResponse, error) {
 	var (
 		transactionResponse models.TransactionPostResponse
@@ -85,6 +98,18 @@ func (s *transactionService) CreateTransaction(input models.TransactionInput, us
 	return transactionResponse, helpers.ReturnIfError(err)
 }
 
+// GetTransactions godoc
+// @Summary      Payment transactions
+// @Description  List of payment transactions
+// @Tags         Customer
+// @Accept       json
+// @Produce      json
+// @Success      200 {object} models.UserTransactionResponse
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /transactions [get]
+// @Security BearerAuth
 func (s *transactionService) GetTransactions(userID uint) ([]models.UserTransactionResponse, error) {
 	transactions, err := s.transactionRepository.GetTransactions(userID)
 	var transactionResponses []models.UserTransactionResponse
@@ -110,6 +135,18 @@ func (s *transactionService) GetTransactions(userID uint) ([]models.UserTransact
 	return transactionResponses, helpers.ReturnIfError(err)
 }
 
+// GetAllTransactions godoc
+// @Summary      Get all user transactions
+// @Description  List of all user transactions
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Success      200 {object} models.TransactionResponse
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /transactions/user-transactions [get]
+// @Security BearerAuth
 func (s *transactionService) GetAllTransactions() ([]models.TransactionResponse, error) {
 	transactions, err := s.transactionRepository.GetTransactions(0)
 

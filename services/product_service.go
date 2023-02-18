@@ -25,6 +25,19 @@ func NewProductServices(repository repositories.ProductRepositories, categoryRep
 	return &productServices{repository, categoryRepository}
 }
 
+// Create Product godoc
+// @Summary      Create product
+// @Description  Add a new product role only admin
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Param        request body models.ProductInput true "Payload Body [RAW]"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /products [post]
+// @Security BearerAuth
 func (ps *productServices) Create(input models.ProductInput) (models.ProductResponse, error) {
 	var (
 		product         models.Product
@@ -53,6 +66,18 @@ func (ps *productServices) Create(input models.ProductInput) (models.ProductResp
 	return productResponse, helpers.ReturnIfError(err)
 }
 
+// Product details godoc
+// @Summary      Product details
+// @Description  Product details
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /products [get]
+// @Security BearerAuth
 func (ps *productServices) GetProducts() ([]models.ProductResponse, error) {
 	var (
 		products         []models.Product
@@ -77,6 +102,18 @@ func (ps *productServices) GetProducts() ([]models.ProductResponse, error) {
 	return productResponses, helpers.ReturnIfError(err)
 }
 
+// Delete Product godoc
+// @Summary      Delete product
+// @Description  Delete product
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /products/1 [delete]
+// @Security BearerAuth
 func (ps *productServices) DeleteProduct(productID uint) error {
 	product, err := ps.repository.GetDataByID(productID)
 	if err != nil {
@@ -88,6 +125,19 @@ func (ps *productServices) DeleteProduct(productID uint) error {
 	return helpers.ReturnIfError(err)
 }
 
+// Update Product godoc
+// @Summary      Update product
+// @Description  Update product
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Param        request body models.ProductInput true "Payload Body [RAW]"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /products/1 [put]
+// @Security BearerAuth
 func (ps *productServices) SaveProduct(input models.ProductInput, productID uint) (models.ProductResponseUpdate, error) {
 	var (
 		product         models.Product

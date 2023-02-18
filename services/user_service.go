@@ -2,6 +2,7 @@ package services
 
 import (
 	"errors"
+	_ "online-store/docs"
 	"online-store/helpers"
 	"online-store/models"
 	"online-store/repositories"
@@ -20,6 +21,18 @@ func NewUserService(repository repositories.UserRepository) *userService {
 	return &userService{repository}
 }
 
+// Register godoc
+// @Summary      Register account
+// @Description  Register an account
+// @Tags         Accounts
+// @Accept       json
+// @Produce      json
+// @Param        request body models.UserRegisterInput true "Payload Body [RAW]"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /users/register [post]
 func (us *userService) Register(input models.UserRegisterInput) (models.UserResponseRegister, error) {
 	var (
 		user         models.User
@@ -56,6 +69,18 @@ func (us *userService) Register(input models.UserRegisterInput) (models.UserResp
 	return userResponse, helpers.ReturnIfError(err)
 }
 
+// Login godoc
+// @Summary      Login account
+// @Description  Login an account
+// @Tags         Accounts
+// @Accept       json
+// @Produce      json
+// @Param        request body models.UserLoginInput true "Payload Body [RAW]"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /users/login [post]
 func (us *userService) Login(input models.UserLoginInput) (string, error) {
 	var token string
 

@@ -21,6 +21,19 @@ func NewCategoryServices(repository repositories.CategoryRepositories) *category
 	return &categoryServices{repository}
 }
 
+// CreateCategories godoc
+// @Summary      Create category
+// @Description  Create an category
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Success      200 {object} models.CategoryResponsePost
+// @Param        request body models.CategoryInput true "Payload Body [RAW]"
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /categories [post]
+// @Security BearerAuth
 func (cs *categoryServices) Create(input models.CategoryInput) (models.CategoryResponsePost, error) {
 	var (
 		category         models.Category
@@ -33,11 +46,22 @@ func (cs *categoryServices) Create(input models.CategoryInput) (models.CategoryR
 
 	categoryResponse.ID = category.ID
 	categoryResponse.Type = category.Type
-	categoryResponse.CreatedAt = category.CreatedAt
 
 	return categoryResponse, helpers.ReturnIfError(err)
 }
 
+// GetCategories godoc
+// @Summary      Product category
+// @Description  View product list by product category
+// @Tags         Customer
+// @Accept       json
+// @Produce      json
+// @Success      200 {object} models.CategoryResponseGet
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /categories [get]
+// @Security BearerAuth
 func (cs *categoryServices) GetCategories() ([]models.CategoryResponseGet, error) {
 	var (
 		categories          []models.Category
@@ -76,6 +100,19 @@ func (cs *categoryServices) GetCategories() ([]models.CategoryResponseGet, error
 	return categoriesResponses, nil
 }
 
+// GetCategories godoc
+// @Summary      Update category
+// @Description  Update category type
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Param        request body models.CategoryInput true "Payload Body [RAW]"
+// @Success      200 {object} models.CategoryResponsePatch
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /categories/1 [patch]
+// @Security BearerAuth
 func (cs *categoryServices) SaveCategory(input models.CategoryInput, categoryID uint) (models.CategoryResponsePatch, error) {
 	var (
 		category         models.Category
@@ -99,6 +136,18 @@ func (cs *categoryServices) SaveCategory(input models.CategoryInput, categoryID 
 
 }
 
+// GetCategories godoc
+// @Summary      Delete category
+// @Description  Delete category
+// @Tags         Admin
+// @Accept       json
+// @Produce      json
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /categories/1 [delete]
+// @Security BearerAuth
 func (cs *categoryServices) DeleteCategory(categoryID uint) error {
 	category, err := cs.repository.GetDataByID(categoryID)
 	if err != nil {
