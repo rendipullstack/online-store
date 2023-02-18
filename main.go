@@ -30,7 +30,7 @@ import (
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      online-store-hanif.up.railway.app
+// @host      https://online-store-hanif.up.railway.app
 // @BasePath  /
 
 // @securityDefinitions.apikey BearerAuth
