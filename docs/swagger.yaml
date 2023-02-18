@@ -1,0 +1,692 @@
+basePath: /
+definitions:
+  models.CartInput:
+    properties:
+      product_id:
+        example: 1
+        type: integer
+      quantity:
+        example: 1
+        minimum: 0
+        type: integer
+    required:
+    - product_id
+    - quantity
+    type: object
+  models.CartPostResponse:
+    properties:
+      product_title:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  models.Category:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      products:
+        items:
+          $ref: '#/definitions/models.Product'
+        type: array
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.CategoryInput:
+    properties:
+      type:
+        example: t-shirt
+        type: string
+    required:
+    - type
+    type: object
+  models.CategoryResponseGet:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      products:
+        items:
+          $ref: '#/definitions/models.ProductResponse'
+        type: array
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.CategoryResponsePatch:
+    properties:
+      id:
+        type: integer
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.CategoryResponsePost:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      type:
+        type: string
+    type: object
+  models.Product:
+    properties:
+      category:
+        $ref: '#/definitions/models.Category'
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      stock:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.ProductInput:
+    properties:
+      category_id:
+        example: 1
+        type: integer
+      price:
+        example: 50000
+        maximum: 50000000
+        minimum: 0
+        type: integer
+      stock:
+        example: 100
+        minimum: 5
+        type: integer
+      title:
+        example: Baju Polos (Hitam)
+        type: string
+    required:
+    - price
+    - stock
+    - title
+    type: object
+  models.ProductResponse:
+    properties:
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      stock:
+        type: integer
+      title:
+        type: string
+    type: object
+  models.TransactionHistory:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      product:
+        $ref: '#/definitions/models.Product'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      total_price:
+        type: integer
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      user_id:
+        type: integer
+    type: object
+  models.TransactionInput:
+    properties:
+      product_id:
+        example: 1
+        type: integer
+      quantity:
+        example: 1
+        minimum: 0
+        type: integer
+    required:
+    - product_id
+    - quantity
+    type: object
+  models.TransactionResponse:
+    properties:
+      id:
+        type: integer
+      product:
+        $ref: '#/definitions/models.ProductResponse'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      total_price:
+        type: integer
+      user:
+        $ref: '#/definitions/models.UserResponse'
+      user_id:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      role:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.UserCartResponse:
+    properties:
+      id:
+        type: integer
+      product:
+        $ref: '#/definitions/models.ProductResponse'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  models.UserLoginInput:
+    properties:
+      email:
+        example: me@hanifz.com
+        type: string
+      password:
+        example: qweqwe
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.UserRegisterInput:
+    properties:
+      email:
+        example: me@hanifz.com
+        type: string
+      full_name:
+        example: hanif
+        type: string
+      password:
+        example: qweqwe
+        minLength: 6
+        type: string
+    required:
+    - email
+    - full_name
+    - password
+    type: object
+  models.UserResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  models.UserTransactionResponse:
+    properties:
+      id:
+        type: integer
+      product:
+        $ref: '#/definitions/models.ProductResponse'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      total_price:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: ochammadhanif@gmail.com
+    name: Mochammad Hanif
+    url: http://www.github.com/nifz
+  description: Software Engineer Challenge PT. Synapsis Sinergi Digital.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Online Store Challenge API
+  version: "1.0"
+paths:
+  /cart:
+    get:
+      consumes:
+      - application/json
+      description: List of products that have been added to the shopping cart
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserCartResponse'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Cart
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Add product to shopping cart
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CartInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CartPostResponse'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Add to cart
+      tags:
+      - Customer
+  /cart/1:
+    delete:
+      consumes:
+      - application/json
+      description: Delete product list in shopping cart
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Delete cart
+      tags:
+      - Customer
+  /categories:
+    get:
+      consumes:
+      - application/json
+      description: View product list by product category
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CategoryResponseGet'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Product category
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Create an category
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CategoryInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CategoryResponsePost'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Create category
+      tags:
+      - Admin
+  /categories/1:
+    delete:
+      consumes:
+      - application/json
+      description: Delete category
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Delete category
+      tags:
+      - Admin
+    patch:
+      consumes:
+      - application/json
+      description: Update category type
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CategoryInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CategoryResponsePatch'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Update category
+      tags:
+      - Admin
+  /checkout:
+    post:
+      consumes:
+      - application/json
+      description: Checkout product list in shopping cart
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.TransactionInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TransactionHistory'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Checkout
+      tags:
+      - Customer
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: Product details
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Product details
+      tags:
+      - Admin
+    post:
+      consumes:
+      - application/json
+      description: Add a new product role only admin
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProductInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Create product
+      tags:
+      - Admin
+  /products/1:
+    delete:
+      consumes:
+      - application/json
+      description: Delete product
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Delete product
+      tags:
+      - Admin
+    put:
+      consumes:
+      - application/json
+      description: Update product
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProductInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Update product
+      tags:
+      - Admin
+  /transactions:
+    get:
+      consumes:
+      - application/json
+      description: List of payment transactions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserTransactionResponse'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Payment transactions
+      tags:
+      - Customer
+  /transactions/user-transactions:
+    get:
+      consumes:
+      - application/json
+      description: List of all user transactions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TransactionResponse'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get all user transactions
+      tags:
+      - Admin
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login an account
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserLoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Login account
+      tags:
+      - Accounts
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Register an account
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Register account
+      tags:
+      - Accounts
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
