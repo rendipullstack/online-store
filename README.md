@@ -38,3 +38,6 @@ REST API: <https://online-store-hanif.up.railway.app>
 |----|-----|--------|
 |Admin|admin@hanifz.com|qweqwe|
 |Customer|user@hanifz.com|qweqwe|
+
+## ERD
+![ERD](https://github.com/nifz/online-store/blob/main/ERD%20Online%20Store.jpg?raw=true)
