@@ -11,7 +11,7 @@ type Category struct {
 }
 
 type CategoryInput struct {
-	Type string `json:"type" binding:"required"`
+	Type string `json:"type" binding:"required" example:"t-shirt"`
 }
 
 type CategoryResponsePost struct {
