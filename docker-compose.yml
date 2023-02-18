@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: onlinestore_db
+    ports:
+      - '3307:3306'
+
+  onlinestore-backend:
+    build: .
+    environment:
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'root'
+      DATABASE_HOST: 'db'
+      DATABASE_NAME: 'onlinestore_db'
+      DATABASE_PORT: 3307
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
