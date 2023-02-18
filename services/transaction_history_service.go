@@ -125,7 +125,7 @@ func (s *transactionService) GetTransactions(userID uint) ([]models.UserTransact
 				Title:      transaction.Product.Title,
 				Price:      transaction.Product.Price,
 				Stock:      *transaction.Product.Stock,
-				CategoryID: transaction.Product.Category.ID,
+				CategoryID: transaction.Product.CategoryID,
 				CreatedAt:  transaction.Product.CreatedAt,
 			},
 		}
@@ -166,7 +166,7 @@ func (s *transactionService) GetAllTransactions() ([]models.TransactionResponse,
 				Title:      transaction.Product.Title,
 				Price:      transaction.Product.Price,
 				Stock:      *transaction.Product.Stock,
-				CategoryID: transaction.Product.Category.ID,
+				CategoryID: transaction.Product.CategoryID,
 				CreatedAt:  transaction.Product.CreatedAt,
 			},
 			User: models.UserResponse{
