@@ -15,8 +15,8 @@ type TransactionHistory struct {
 }
 
 type TransactionInput struct {
-	ProductID int `json:"product_id" binding:"required"`
-	Quantity  int `json:"quantity" binding:"required,min=0"`
+	ProductID int `json:"product_id" binding:"required" example:"1"`
+	Quantity  int `json:"quantity" binding:"required,min=0" example:"1"`
 }
 
 type TransactionPostResponse struct {
