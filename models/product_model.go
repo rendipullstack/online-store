@@ -14,10 +14,10 @@ type Product struct {
 }
 
 type ProductInput struct {
-	Title      string `json:"title" binding:"required"`
-	Price      int    `json:"price" binding:"required,min=0,max=50000000"`
-	Stock      int    `json:"stock" binding:"required,gte=5"`
-	CategoryID uint   `json:"category_id"`
+	Title      string `json:"title" binding:"required" example:"Baju Polos (Hitam)"`
+	Price      int    `json:"price" binding:"required,min=0,max=50000000" example:"50000"`
+	Stock      int    `json:"stock" binding:"required,gte=5" example:"100"`
+	CategoryID uint   `json:"category_id" example:"1"`
 }
 
 type ProductResponse struct {
